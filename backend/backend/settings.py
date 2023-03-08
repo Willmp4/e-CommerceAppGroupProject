@@ -11,16 +11,26 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import  os
+import firebase_admin
+from firebase_admin import credentials
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Initialize Firebase
+cred = credentials.Certificate("/Users/wgoud/OneDrive/Desktop/Uwl/Yr2/semester2/backend/e-commercegroupproject-firebase-adminsdk-52cz9-4d53f75c09.json")
+
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+FIREBASE_ADMIN_SDK_KEYFILE = os.path.join(BASE_DIR, "/Users/wgoud/OneDrive/Desktop/Uwl/Yr2/semester2/backend/e-commercegroupproject-firebase-adminsdk-52cz9-4d53f75c09.json")
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sghq)ph(!ubkt48%$&p#ph(z4g^ibv)sruo3l4(hs_-mc3*1+e'
+SECRET_KEY = 'django-insecure-ibbhps)i3f$1ty0ny@ct_4c3c%*o^!*p6sg_bqn^9rip-d=ck_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +66,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, '../frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +133,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django_social_app.backends.GoogleOAuth2',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1092588329442-4t8irvtfcs27kidlctkeepasdp032tp8.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = SECRET_KEY
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '../frontend/build/static')]
+
